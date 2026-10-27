@@ -1,0 +1,107 @@
+{
+  "kind": "clock",
+  "id": "unix",
+  "name": "Unix Epoch Clock",
+  "repository": "Clock-Unix",
+  "defines": {
+    "INFILTRATR_TEMPORAL_DISPLAY_NAME": "\"Unix Epoch Clock\"",
+    "CLOCK_RESOURCE_KIND": "3",
+    "CLOCK_RESOURCE_ID": "\"unix\"",
+    "CLOCK_RESOURCE_SECONDS": "false"
+  },
+  "entry": "resources/temporal/src/clocks/fixed-clock.c",
+  "build_dependencies": [],
+  "upstream_repository": "Infiltrator-Projects/Libraries",
+  "upstream_revision": "8d60662114e3052380f6f88ad3cacd9732ae7131",
+  "upstream_version": "1.19.78",
+  "source_copy_only": true,
+  "common_modified": false,
+  "files": [
+    {
+      "path": "include/infiltratr/temporal.h",
+      "source_path": "include/infiltratr/temporal.h",
+      "source_sha256": "bf212e14f7c553ce7b6f36c552ab696dcdedeebed3a61fe34b45b39881e3f539",
+      "copied_sha256": "bf212e14f7c553ce7b6f36c552ab696dcdedeebed3a61fe34b45b39881e3f539",
+      "selected_definitions": []
+    },
+    {
+      "path": "include/infiltratr/temporal_clock_resource.h",
+      "source_path": "include/infiltratr/temporal_clock_resource.h",
+      "source_sha256": "ea9f8fe70f59b7c7518668f5a12c4a1b8595da2fe61587f84e67fdb23c28671f",
+      "copied_sha256": "ea9f8fe70f59b7c7518668f5a12c4a1b8595da2fe61587f84e67fdb23c28671f",
+      "selected_definitions": [
+        "INFILTRATR_TEMPORAL_CLOCK_PROVIDER_ABI"
+      ]
+    },
+    {
+      "path": "include/infiltratr/temporal_resource.h",
+      "source_path": "include/infiltratr/temporal_resource.h",
+      "source_sha256": "7ce225d7b2c6721b7d56fc152f68c4c680f6a7d068db26a5942fe2f3b583512d",
+      "copied_sha256": "7ce225d7b2c6721b7d56fc152f68c4c680f6a7d068db26a5942fe2f3b583512d",
+      "selected_definitions": []
+    },
+    {
+      "path": "include/infiltratr/temporal_runtime.h",
+      "source_path": "include/infiltratr/temporal_runtime.h",
+      "source_sha256": "6b5c52a266b53b5ceaafe048532c282a7e96fe64c3a1381a13c35c161629ba67",
+      "copied_sha256": "6b5c52a266b53b5ceaafe048532c282a7e96fe64c3a1381a13c35c161629ba67",
+      "selected_definitions": [
+        "INFILTRATR_TEMPORAL_RESOURCE_METADATA_ABI"
+      ]
+    },
+    {
+      "path": "src/clocks/clock-civil.h",
+      "source_path": "resources/temporal/src/clocks/clock-civil.h",
+      "source_sha256": "f97a3f683360d1b77df5086c95993d6b36f2b94d9e1325a4878eb5802ebbdeeb",
+      "copied_sha256": "f97a3f683360d1b77df5086c95993d6b36f2b94d9e1325a4878eb5802ebbdeeb",
+      "selected_definitions": [
+        "clock_civil_modulo"
+      ]
+    },
+    {
+      "path": "src/provider.c",
+      "source_path": "resources/temporal/src/clocks/fixed-clock.c",
+      "source_sha256": "373ac68edd43fd0b493d3d58b941efd8a24e8a7857228124504bdd5aff4fbb01",
+      "copied_sha256": "6ee921433bcdecf2ef9462784e9d2a5f3f7d51162d77d66065cf87b3f05c04c3",
+      "selected_definitions": [
+        "CLOCK_MICROSECONDS_PER_DAY",
+        "CLOCK_MICROSECONDS_PER_SECOND",
+        "EXPORT",
+        "clock_next_tick",
+        "clock_render",
+        "floor_divide",
+        "infiltratr_temporal_clock_provider_v1",
+        "infiltratr_temporal_resource_metadata_v1",
+        "metadata",
+        "provider",
+        "ticks_at"
+      ]
+    },
+    {
+      "path": "exports.map",
+      "source_path": "resources/temporal/src/clocks/clock-resource.map",
+      "source_sha256": "9bf9b9889241eebe70cd530d26465d281465da79ea4bb633d67f8831036696af",
+      "copied_sha256": "9bf9b9889241eebe70cd530d26465d281465da79ea4bb633d67f8831036696af",
+      "selected_definitions": []
+    },
+    {
+      "path": "LICENSE",
+      "source_path": "LICENSE",
+      "source_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "copied_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "selected_definitions": []
+    }
+  ],
+  "copy_method": "Select this provider in the original conditional source, specialize private dispatch branches, retain reachable provider/helper definitions, and copy the transitive local headers. Original functions and data remain attributed to Common.",
+  "verification": {
+    "repository": "Clock-Unix",
+    "compared_observations": 608,
+    "retained_fixtures": 84,
+    "exports": [
+      "infiltratr_temporal_clock_provider_v1",
+      "infiltratr_temporal_resource_metadata_v1"
+    ],
+    "abi_identical": true,
+    "behaviour_identical": true
+  }
+}
