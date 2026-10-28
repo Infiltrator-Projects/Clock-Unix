@@ -40,7 +40,7 @@ common-check:
 
 $(COMMON_ARCHIVE): common-check
 	@mkdir -p "$(COMMON_BUILD_DIR)"
-	$(MAKE) -C "$(COMMON_DIR)" CC="$(CC)" BUILD_DIR="$(COMMON_BUILD_DIR)" all
+	$(MAKE) -C "$(COMMON_DIR)" CC="$(CC)" BUILD_DIR="$(COMMON_BUILD_DIR)" CFLAGS="$(CFLAGS) -Wno-missing-profile" all
 .PHONY: all check audit-authorities clean
 all: $(COMMON_ARCHIVE)
 	@mkdir -p "$(BUILD_DIR)"
