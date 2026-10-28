@@ -33,9 +33,9 @@ LDLIBS += $(DEP_LIBS) -lm -ldl -pthread
 .PHONY: common-check
 common-check:
 	@test -f "$(COMMON_DIR)/VERSION" || { echo "Missing Common submodule: git submodule update --init" >&2; exit 1; }
-	@test "$(tr -d '[:space:]' < "$(COMMON_DIR)/VERSION")" = "$(COMMON_VERSION)" || { echo "Common version mismatch" >&2; exit 1; }
+	@grep -qx "$(COMMON_VERSION)" "$(COMMON_DIR)/VERSION" || { echo "Common version mismatch" >&2; exit 1; }
 	@if test -e "$(COMMON_DIR)/.git"; then \
-	  test "$(git -C "$(COMMON_DIR)" rev-parse HEAD)" = "$(COMMON_REVISION)" || { echo "Common git pin mismatch" >&2; exit 1; }; \
+	  git -C "$(COMMON_DIR)" rev-parse HEAD | grep -qx "$(COMMON_REVISION)" || { echo "Common git pin mismatch" >&2; exit 1; }; \
 	fi
 
 $(COMMON_ARCHIVE): common-check
