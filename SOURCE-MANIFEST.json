@@ -12,8 +12,8 @@
   "entry": "resources/temporal/src/clocks/fixed-clock.c",
   "build_dependencies": [],
   "upstream_repository": "Infiltrator-Projects/Libraries",
-  "upstream_revision": "dc4aac326964ca4400b6e21851d16eea674040c8",
-  "upstream_version": "1.19.80",
+  "upstream_revision": "8d60662114e3052380f6f88ad3cacd9732ae7131",
+  "upstream_version": "1.19.78",
   "source_copy_only": false,
   "common_modified": false,
   "files": [
