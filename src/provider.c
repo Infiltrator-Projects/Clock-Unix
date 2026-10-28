@@ -5,7 +5,8 @@
  * formatting dependency. Common supplies the ABI and validates callbacks.
  */
 #include <infiltratr/temporal_clock_resource.h>
-#include "clock-civil.h"
+#include <infiltratr/arithmetic.h>
+#include <infiltratr/temporal.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -13,12 +14,6 @@
 
 #define CLOCK_MICROSECONDS_PER_SECOND INT64_C(1000000)
 #define CLOCK_MICROSECONDS_PER_DAY INT64_C(86400000000)
-
-static int64_t floor_divide(int64_t n, int64_t divisor)
-{
-    const int64_t quotient = n / divisor;
-    return n % divisor < 0 ? quotient - 1 : quotient;
-}
 
 static uint64_t ticks_at(uint64_t phase, uint64_t per_day)
 {
@@ -33,13 +28,16 @@ static bool clock_render(const InfiltratrTemporalClockProvider *provider,
     char text[128] = {0};
     int written = -1;
     uint64_t tick;
+    int64_t unix_seconds = 0;
     const char *sep = vertical ? "\n" : ":";
 
     (void)provider; (void)locale; (void)latitude; (void)longitude;
     (void)instant; (void)offset; (void)seconds; (void)vertical;
     (void)tick; (void)sep;
+    if (!infiltratr_i64_floor_divmod(instant, CLOCK_MICROSECONDS_PER_SECOND,
+                                    &unix_seconds, NULL)) return false;
     written = snprintf(text, sizeof(text), "%lld",
-        (long long)floor_divide(instant, CLOCK_MICROSECONDS_PER_SECOND));
+        (long long)unix_seconds);
     if (buffer == NULL || written <= 0 || (size_t)written >= sizeof(text) ||
         (size_t)written >= capacity) return false;
     memcpy(buffer, text, (size_t)written + 1U);
@@ -55,7 +53,7 @@ static bool clock_next_tick(const InfiltratrTemporalClockProvider *provider,
     (void)provider; (void)latitude; (void)longitude; (void)offset; (void)seconds;
     if (milliseconds == NULL) return false;
     units = UINT64_C(86400);
-    phase = (uint64_t)clock_civil_modulo(instant, CLOCK_MICROSECONDS_PER_DAY);
+    phase = (uint64_t)infiltratr_temporal_local_microseconds_of_day(instant, 0);
     tick = ticks_at(phase, units);
     boundary = ((tick + 1U) * (uint64_t)CLOCK_MICROSECONDS_PER_DAY +
                  units - 1U) / units;
