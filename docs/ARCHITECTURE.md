@@ -5,7 +5,7 @@ Common is the only owner of reusable arithmetic, temporal coordinates, provider 
 
 ## Real Common dependency
 
-The common/ Git submodule is pinned to Common 1.19.80 at dc4aac326964ca4400b6e21851d16eea674040c8.
+The common/ Git submodule is pinned to Common 1.19.81 at a99ef676b0e43c7e645c81756e3fd38be0a54406.
 The provider includes Common public headers and compiles against its actual static archive,
 never private Common source files or copied ABI headers. The Common archive is compiled
 under the same portable or aggressive optimisation profile as the provider.

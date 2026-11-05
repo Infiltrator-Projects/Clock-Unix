@@ -49,5 +49,5 @@ Each package owns only this provider and its passive documentation. Its `Replace
 ## Two installed clock files
 
 Exactly one compiled clock .so under /System/Resources/Clocks/ and its
-illustrated explanatory PDF in /System/Resources/Documentation/Clock-Unix/
+illustrated explanatory PDF in /System/Resources/Documentation/Clock-Unix.pdf
 are installed. Development files stay in GitHub; build proof stays in dpkg.
