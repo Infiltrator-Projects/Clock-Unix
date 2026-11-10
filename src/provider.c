@@ -6,19 +6,12 @@
  */
 #include <infiltratr/temporal_clock_resource.h>
 #include <infiltratr/arithmetic.h>
-#include <infiltratr/temporal.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
 #define CLOCK_MICROSECONDS_PER_SECOND INT64_C(1000000)
-#define CLOCK_MICROSECONDS_PER_DAY INT64_C(86400000000)
-
-static uint64_t ticks_at(uint64_t phase, uint64_t per_day)
-{
-    return phase * per_day / (uint64_t)CLOCK_MICROSECONDS_PER_DAY;
-}
 
 static bool clock_render(const InfiltratrTemporalClockProvider *provider,
                          const char *locale, int64_t instant, int32_t offset,
@@ -27,13 +20,10 @@ static bool clock_render(const InfiltratrTemporalClockProvider *provider,
 {
     char text[128] = {0};
     int written = -1;
-    uint64_t tick;
     int64_t unix_seconds = 0;
-    const char *sep = vertical ? "\n" : ":";
 
     (void)provider; (void)locale; (void)latitude; (void)longitude;
-    (void)instant; (void)offset; (void)seconds; (void)vertical;
-    (void)tick; (void)sep;
+    (void)offset; (void)seconds; (void)vertical;
     if (!infiltratr_i64_floor_divmod(instant, CLOCK_MICROSECONDS_PER_SECOND,
                                     &unix_seconds, NULL)) return false;
     written = snprintf(text, sizeof(text), "%lld",
@@ -49,18 +39,13 @@ static bool clock_next_tick(const InfiltratrTemporalClockProvider *provider,
                             int64_t instant, int32_t offset, bool seconds,
                             double latitude, double longitude, uint32_t *milliseconds)
 {
-    uint64_t phase, units, tick, boundary, remaining, result;
     (void)provider; (void)latitude; (void)longitude; (void)offset; (void)seconds;
     if (milliseconds == NULL) return false;
-    units = UINT64_C(86400);
-    phase = (uint64_t)infiltratr_temporal_local_microseconds_of_day(instant, 0);
-    tick = ticks_at(phase, units);
-    boundary = ((tick + 1U) * (uint64_t)CLOCK_MICROSECONDS_PER_DAY +
-                 units - 1U) / units;
-    remaining = boundary > phase ? boundary - phase : 1U;
-    result = (remaining + UINT64_C(999)) / UINT64_C(1000);
-    if (result == 0U || result > UINT32_MAX) return false;
-    *milliseconds = (uint32_t)result;
+    /* Negative Unix instants need a positive subsecond phase. */
+    int64_t phase = instant % CLOCK_MICROSECONDS_PER_SECOND;
+    if (phase < 0) phase += CLOCK_MICROSECONDS_PER_SECOND;
+    const int64_t remaining = CLOCK_MICROSECONDS_PER_SECOND - phase;
+    *milliseconds = (uint32_t)((remaining + 999) / 1000);
     return true;
 }
 
