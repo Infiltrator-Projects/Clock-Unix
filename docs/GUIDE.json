@@ -1,0 +1,14 @@
+{
+  "title": "Unix Epoch Clock",
+  "intro": "This clock displays the signed count of ordinary Unix seconds since 00:00:00 UTC on 1 January 1970.",
+  "structure": "The reading is one signed decimal integer rather than hours, minutes and seconds. Zero denotes the epoch; positive values follow it and negative values precede it. Each day in the numerical Unix model contributes 86400 seconds.",
+  "example": "At the epoch the reading is 0; one second later it is 1; one second before it is -1. At 00:00 UTC on 2 January 1970 it is 86400. An instant one microsecond before the epoch also reads -1, because the provider floors negative fractions rather than truncating toward zero.",
+  "history": "Unix epoch notation is a modern computer time coordinate, distinct from traditional wall-clock or calendar displays.",
+  "model": "The provider floor-divides the signed native microsecond instant by 1000000, preserving the sign and rounding toward negative infinity. It formats the quotient as a decimal integer. Scheduling uses a positive subsecond remainder and rounds the wait to the next whole second upward to milliseconds.",
+  "limits": "Locale, local offset, coordinates, seconds toggle and vertical display flag do not alter the integer reading. The model follows Unix seconds rather than a leap-second-aware elapsed atomic-time count; it does not impose a 32-bit signed timestamp limit.",
+  "sources": [
+    "Implementation: https://github.com/Infiltrator-Projects/Clock-Unix/blob/main/src/provider.c",
+    "Model evidence: https://github.com/Infiltrator-Projects/Clock-Unix/blob/main/docs/MODEL.md",
+    "Shared contract: https://github.com/Infiltrator-Projects/Libraries/blob/main/docs/TEMPORAL_PROVIDERS.md"
+  ]
+}

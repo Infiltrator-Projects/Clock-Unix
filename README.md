@@ -12,7 +12,7 @@ The clock owns both its notation and next-visible-tick scheduling. It does not r
 
 ## Status
 
-**Independent source, native installation and releases.** This repository contains the implementation of `unix`, the supporting code it needs, a one-provider `Makefile` and focused regression fixtures. The copy is based on Common 1.19.78 at `8d60662114e3`; the original Common source remains unchanged.
+**Independent source, native installation and releases.** This repository contains the implementation of `unix`, the supporting code it needs, a one-provider `Makefile` and focused regression fixtures. The initial extraction was based on Common 1.19.78; current builds link the authoritative Common submodule pinned by the Makefile.
 
 Run `make` to produce `build/Unix Epoch Clock.so` and `make check` to run this provider's checks. The pinned Common submodule is required. Independent releases now provide a portable amd64 Debian package, a small hardware-native network installer; GitHub supplies the automatic tag source ZIP. The original Common source is retained.
 
@@ -53,3 +53,7 @@ illustrated explanatory PDF in /System/Resources/Documentation/Clock-Unix.pdf
 are installed. Development files stay in GitHub; build proof stays in dpkg.
 
 Native release installers fetch the exact provider Git commit and its pinned Common submodule, verify both identities, and build locally. No source or binary payload is embedded in the RUN; GitHub provides its automatic source archive separately.
+
+## User manual
+
+The installed PDF is generated from [docs/GUIDE.json](docs/GUIDE.json) using the pinned Common renderer.
